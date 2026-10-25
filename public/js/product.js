@@ -3,7 +3,7 @@
    ===================================================================== */
 'use strict';
 
-let P = null, SETTINGS = null;
+let P = null; // SETTINGS comes from app.js
 let selSize = '';
 
 function pdId() { return decodeURIComponent(location.pathname.split('/product/')[1] || ''); }

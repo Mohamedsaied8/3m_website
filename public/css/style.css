@@ -203,7 +203,7 @@ body.nav-open .drawer-close { display: block; }
 .hero-logo {
   width: 130px; height: 130px; border-radius: 50%;
   border: 1px solid var(--gold); padding: 6px; background: rgba(0, 0, 0, .5);
-  margin-bottom: 2.2rem; animation: pulseGlow 5s ease-in-out infinite alternate;
+  margin: 0 auto 2.2rem; animation: pulseGlow 5s ease-in-out infinite alternate;
 }
 @keyframes pulseGlow { from { box-shadow: 0 0 0 0 rgba(185,151,91,.0); } to { box-shadow: 0 0 60px 6px rgba(185,151,91,.25); } }
 .hero .eyebrow {

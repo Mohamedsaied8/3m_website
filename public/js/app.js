@@ -15,6 +15,7 @@ const I18N = {
   'brand.tagline': ['Home Wear & Eastern Clothes', 'ملابس منزلية وشرقية'],
   'topbar': ['Free delivery over {1} EGP · Cash on delivery across Egypt',
     'شحن مجاني فوق {1} جنيه · الدفع عند الاستلام لكل مصر'],
+  'topbar.nofree': ['Cash on delivery across Egypt', 'الدفع عند الاستلام لكل مصر'],
 
   /* home */
   'home.eyebrow': ['From the heart of Egypt', 'من قلب مصر'],
@@ -74,6 +75,7 @@ const I18N = {
   'pd.title': ['Product', 'الموديل'],
   'pd.size': ['Select size', 'اختر المقاس'],
   'pd.qty': ['Qty', 'العدد'],
+  'size': ['Size', 'المقاس'],
   'pd.add-cart': ['Add to bag', 'أضف للكارت'],
   'pd.buy-wa': ['Order via WhatsApp', 'اطلب واتساب'],
   'pd.stock.yes': ['In stock — ships in 24h', 'متوفر — يُشحن خلال 24 ساعة'],
@@ -280,8 +282,8 @@ function govOptions() {
 
 /* ------------------------------------------------------------ settings */
 let SETTINGS = null;
-async function loadSettings() {
-  if (SETTINGS) return SETTINGS;
+async function loadSettings(fresh) {
+  if (SETTINGS && !fresh) return SETTINGS;
   try { SETTINGS = await api('/api/settings'); } catch { SETTINGS = {}; }
   return SETTINGS;
 }
@@ -384,7 +386,7 @@ async function hydrateChrome() {
   const s = await loadSettings();
   if (!s) return;
   const tb = $('#topbar');
-  if (tb) tb.textContent = t('topbar', [s.freeShippingOver || 2500]);
+  if (tb) tb.textContent = s.freeShippingOver > 0 ? t('topbar', [s.freeShippingOver]) : t('topbar.nofree');
   const social = $('#socialRow');
   if (social && s.facebook) {
     social.innerHTML = `<a href="${esc(s.facebook)}" target="_blank" rel="noopener" aria-label="Facebook">${ico('fb')}</a>`;

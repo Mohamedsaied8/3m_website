@@ -203,9 +203,8 @@ function serveFile(res, filePath) {
     if (err) return page404(res);
     send(res, 200, data, {
       'Content-Type': mime,
-      'Cache-Control': isImg || ext === '.css' || ext === '.js'
-        ? 'public, max-age=3600'
-        : 'no-cache',
+      // images: cache 1h · html/css/js: always revalidate so fixes reach visitors at once
+      'Cache-Control': isImg ? 'public, max-age=3600' : 'no-cache',
     });
   });
 }
@@ -245,6 +244,7 @@ async function handleApi(req, res, pathname) {
     return json(res, 401, { error: 'Wrong password' });
   }
   if (pathname === '/api/logout' && req.method === 'POST') {
+    sessions.delete(parseCookies(req).adminToken);
     res.setHeader('Set-Cookie', 'adminToken=; HttpOnly; Path=/; Max-Age=0');
     return json(res, 200, { ok: true });
   }
@@ -257,7 +257,9 @@ async function handleApi(req, res, pathname) {
   if (pathname === '/api/settings' && req.method === 'PUT') {
     if (!isAuthed(req)) return json(res, 401, { error: 'Unauthorized' });
     const body = JSON.parse((await readBody(req)).toString() || '{}');
+    delete body.adminPasswordHash; // never accept a hash from the client
     const next = normalizeSettings(body);
+    next.adminPasswordHash = settings.adminPasswordHash; // keep current password
     // password change
     if (body.newPassword) {
       if (!body.currentPassword || sha256(body.currentPassword) !== settings.adminPasswordHash)
@@ -372,7 +374,7 @@ async function handleApi(req, res, pathname) {
     const cust = body.customer || {};
     const valid = items.filter(it => {
       const p = get(it.id);
-      return p && Number(it.qty) > 0 && Number(it.qty) < 100;
+      return p && p.visible && p.stock && Number(it.qty) > 0 && Number(it.qty) < 100;
     }).map(it => {
       const p = get(it.id);
       return { id: p.id, nameEn: p.nameEn, nameAr: p.nameAr, price: p.price, qty: Math.floor(Number(it.qty)), size: String(it.size || '').slice(0, 12) };
@@ -395,13 +397,18 @@ async function handleApi(req, res, pathname) {
        2) return its redirect/payment_url in the response `paymentUrl`
        3) add /api/payment/callback to confirm the order & set status.   */
 
+    const pay = settings.payment;
+    const allowed = [pay.cashOnDelivery && 'cash_on_delivery', pay.instapay.enabled && 'instapay'].filter(Boolean);
+    const paymentMethod = allowed.includes(body.paymentMethod) ? body.paymentMethod : (allowed[0] || 'cash_on_delivery');
+
     const seq = orders.length + 1;
     const order = {
       id: '3M-' + String(1000 + seq),
       status: 'new',
-      paymentMethod: settings.payment.cashOnDelivery ? 'cash_on_delivery' : 'manual',
+      paymentMethod,
       customer: {
         name, phone,
+        altPhone: String(cust.altPhone || '').trim().slice(0, 20),
         governorate: String(cust.governorate || '').slice(0, 60),
         city: String(cust.city || '').slice(0, 60),
         address,
@@ -435,10 +442,12 @@ async function handleApi(req, res, pathname) {
 
 /* ------------------------------------------------------------ server --- */
 const server = http.createServer(async (req, res) => {
-  const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
-  let pathname = decodeURIComponent(url.pathname.replace(/\/{2,}/g, '/'));
-
+  let pathname = '';
   try {
+    const url = new URL(req.url, 'http://localhost');
+    try { pathname = decodeURIComponent(url.pathname.replace(/\/{2,}/g, '/')); }
+    catch { return send(res, 400, 'Bad request'); }
+
     if (pathname.startsWith('/api/')) return await handleApi(req, res, pathname);
 
     // rewrite pretty URLs → pages
@@ -466,6 +475,7 @@ const server = http.createServer(async (req, res) => {
     }
     return page404(res);
   } catch (e) {
+    if (e instanceof SyntaxError && pathname.startsWith('/api/')) return json(res, 400, { error: 'Invalid JSON' });
     console.error(`[error] ${req.method} ${pathname}`, e);
     if (pathname.startsWith('/api/')) return json(res, 500, { error: 'Server error' });
     return page404(res);

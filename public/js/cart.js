@@ -74,6 +74,7 @@ function renderCart() {
   box.querySelectorAll('[data-dec]').forEach(b => b.addEventListener('click', () => bumpQty(b.dataset.id, b.dataset.size, -1)));
   box.querySelectorAll('[data-rm]').forEach(b => b.addEventListener('click', () => { cartRemove(b.dataset.id, b.dataset.size); renderCart(); }));
   $('#toCheckout').addEventListener('click', goCheckout);
+  revealInit(); // cart lines use the .reveal fade-in
 }
 
 function bumpQty(id, size, d) {

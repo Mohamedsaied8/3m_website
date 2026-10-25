@@ -50,7 +50,7 @@ async function bootData() {
   [PRODUCTS, ORDERS, SETT] = await Promise.all([
     api('/api/products?all=1') /* server ignores unknown params; fine */,
     api('/api/orders'),
-    loadSettings(),
+    loadSettings(true),
   ]);
   renderTab();
 }
@@ -86,7 +86,7 @@ function renderOverview(box) {
     </div>
     <div class="note" style="margin-top:.8rem">
       <b>Photo policy · سياسة الصور</b><br>
-      The 8 summer pieces built from the branded studio shots are live. The remaining seeded pieces are <b>hidden</b> because their photos include hands holding the garment — review them, replace or crop the photo, then toggle <b>Visible</b>. Keep all photos people-free.
+      Keep every product photo garment-only (hanger / flat-lay) — no people. · صور القطعة فقط بدون أشخاص.
     </div>`;
 }
 
@@ -146,7 +146,7 @@ function openEditor(p) {
     sizes: new Set(p ? p.sizes : BASE_SIZES.slice(0, 4)),
     customSizes: p ? (p.sizes.filter(s => !BASE_SIZES.includes(s))) : [],
   };
-  const v = (sel, val) => val ?? '';
+  const v = (sel, val) => esc(val ?? '');
 
   const modal = document.createElement('div');
   modal.className = 'modal-veil';
@@ -311,7 +311,7 @@ function renderOrders(box) {
     ${ORDERS.length ? ORDERS.map(o => `
       <tr>
         <td><b>${esc(o.id)}</b><br><span class="pill ${esc(o.status)}">${esc(o.status)}</span></td>
-        <td>${esc(o.customer.name)}<br><a style="color:inherit" href="tel:${esc(o.customer.phone)}">${esc(o.customer.phone)}</a><br>
+        <td>${esc(o.customer.name)}<br><a style="color:inherit" href="tel:${esc(o.customer.phone)}">${esc(o.customer.phone)}</a>${o.customer.altPhone ? ` · <a style="color:inherit" href="tel:${esc(o.customer.altPhone)}">${esc(o.customer.altPhone)}</a>` : ''}<br>
           <span style="color:#777;font-size:.8rem">${esc(o.customer.governorate)} · ${esc(o.customer.city)} — ${esc(o.customer.address)}</span>
           ${o.customer.notes ? `<br><span style="color:#999;font-size:.8rem">“${esc(o.customer.notes)}”</span>` : ''}</td>
         <td>${o.items.map(i => `${esc(i.nameEn || i.nameAr)}${i.size ? ' (' + esc(i.size) + ')' : ''} ×${i.qty}`).join('<br>')}</td>
