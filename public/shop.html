@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop — 3M Fashion</title>
+  <meta name="description" content="Shop 3M Fashion — home wear & eastern clothes. Pure cotton sets, day dresses with cash on delivery across Egypt.">
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;600&family=Almarai:wght@300;400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-page="shop">
+  <div id="site-head"></div>
+
+  <main>
+    <div class="page-title">
+      <span class="label" data-i18n="shop.sub"></span>
+      <h1 data-i18n="shop.title"></h1>
+    </div>
+
+    <div class="shop-toolbar">
+      <div class="wrap toolbar-row">
+        <div class="chips" id="seasonChips">
+          <button class="chip" data-season="all" data-i18n="shop.all"></button>
+          <button class="chip" data-season="summer" data-i18n="nav.summer"></button>
+          <button class="chip" data-season="winter" data-i18n="nav.winter"></button>
+        </div>
+        <div class="chips" id="catChips">
+          <button class="chip" data-cat="" data-i18n="shop.all"></button>
+          <button class="chip" data-cat="homewear" data-i18n="shop.homewear"></button>
+          <button class="chip" data-cat="eastern" data-i18n="shop.eastern"></button>
+        </div>
+        <div style="display:flex;gap:.9rem;align-items:center;flex-wrap:wrap">
+          <input id="shopSearch" class="chip" style="min-width:150px" type="search" data-i18n-ph="shop.search" aria-label="search">
+          <select id="shopSort" class="mini" aria-label="sort">
+            <option value="" data-i18n="shop.sort"></option>
+            <option value="price-asc">EGP ↑</option>
+            <option value="price-desc">EGP ↓</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <section class="pad" style="padding-top:2.4rem">
+      <div class="wrap">
+        <div class="shop-meta">
+          <div class="label" id="countLabel"></div>
+        </div>
+        <div class="grid-products" id="shopGrid"></div>
+        <div class="empty-state hidden" id="shopEmpty">
+          <h3 data-i18n="shop.empty.t"></h3>
+          <p data-i18n="shop.empty.d"></p>
+          <a class="btn" href="/shop" data-i18n="cart.empty.btn"></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-foot"></div>
+  <script src="/js/app.js"></script>
+  <script src="/js/shop.js"></script>
+</body>
+</html>

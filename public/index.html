@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3M Fashion — Home Wear & Eastern Clothes | أناقة منزلية</title>
+  <meta name="description" content="3M Fashion — premium home wear & eastern clothes. 100% pure cotton, timeless cuts, cash on delivery across Egypt. ملابس منزلية وشرقية من أجود الأقمشة.">
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&family=Almarai:wght@300;400;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-page="home">
+  <div id="site-head"></div>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="pattern"></div>
+      <div style="position:relative;z-index:4">
+        <img class="hero-logo" src="/img/logo.jpeg" alt="3M Fashion logo">
+        <p class="eyebrow" data-i18n="home.eyebrow"></p>
+        <h1 id="heroTitle"></h1>
+        <p class="sub" id="heroSub"></p>
+        <div class="cta">
+          <a class="btn solid" href="/shop" data-i18n="nav.shop"></a>
+          <a class="btn" href="#collections" data-i18n="hero.explore"></a>
+        </div>
+      </div>
+  <div class="scroll-hint" data-i18n="scroll.hint"></div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track" id="marqueeTrack"></div>
+    </div>
+
+    <!-- ============ COLLECTIONS ============ -->
+    <section class="pad" id="collections">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="label" data-i18n="home.collections.label"></span>
+          <h2 data-i18n="home.collections.title"></h2>
+          <div class="rule"></div>
+        </div>
+        <div class="split-grid">
+          <a class="split-card reveal" href="/shop?season=summer" id="summerCard">
+            <div class="bg" id="summerBg"></div>
+            <div class="veil"></div>
+            <div class="frame"></div>
+            <div class="body">
+              <span class="label" data-i18n="col.summer.label"></span>
+              <h3 data-i18n="col.summer.name"></h3>
+              <p style="color:rgba(247,244,238,.75);margin-bottom:1.6rem;font-weight:300" data-i18n="col.summer.desc"></p>
+              <span class="link-u" style="color:var(--gold-2)" data-i18n="col.shop"></span>
+            </div>
+          </a>
+          <a class="split-card no-photo reveal d1" href="/shop?season=winter" id="winterCard">
+            <div class="bg" id="winterBg"></div>
+            <div class="veil"></div>
+            <div class="frame"></div>
+            <div class="body">
+              <span class="label" data-i18n="col.winter.label"></span>
+              <h3 data-i18n="col.winter.name"></h3>
+              <p style="color:rgba(247,244,238,.75);margin-bottom:1.6rem;font-weight:300" data-i18n="col.winter.desc"></p>
+              <span class="link-u" style="color:var(--gold-2)" data-i18n="col.shop"></span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURED ============ -->
+    <section class="pad pad-alt">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="label" data-i18n="home.featured.label"></span>
+          <h2 data-i18n="home.featured.title"></h2>
+          <div class="rule"></div>
+        </div>
+        <div class="grid-products" id="featuredGrid"></div>
+        <p style="text-align:center;margin-top:2.6rem" class="reveal">
+          <a class="btn" href="/shop" data-i18n="home.featured.more"></a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ STORY ============ -->
+    <section class="pad dark">
+      <div class="wrap story-grid">
+        <div class="story-txt reveal">
+          <span class="label" data-i18n="home.story.label"></span>
+          <h2 style="font-size:clamp(2rem,4.2vw,3.2rem);margin:.8rem 0 1.2rem" data-i18n="home.story.title"></h2>
+          <p data-i18n="home.story.p1"></p>
+          <p data-i18n="home.story.p2"></p>
+          <a class="btn" href="/shop" data-i18n="home.story.btn"></a>
+        </div>
+        <div class="story-img reveal d1">
+          <img src="" id="storyImg" alt="3M Fashion fabric detail" loading="lazy" width="800" height="1000">
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SERVICES ============ -->
+    <section class="pad" style="padding-block:0">
+      <div class="wrap">
+        <div class="services reveal" id="servicesRow"></div>
+      </div>
+    </section>
+
+    <!-- ============ LOOKBOOK PREVIEW ============ -->
+    <section class="pad">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="label" data-i18n="home.lookbook.label"></span>
+          <h2 data-i18n="home.lookbook.title"></h2>
+          <div class="rule"></div>
+        </div>
+        <div class="masonry reveal" id="lookMasonry"></div>
+        <p style="text-align:center;margin-top:2.6rem" class="reveal">
+          <a class="btn gold" href="/gallery" data-i18n="home.lookbook.btn"></a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ NEWSLETTER ============ -->
+    <section class="newsletter">
+      <div class="wrap reveal">
+        <span class="label" data-i18n="news.label"></span>
+        <h2 style="font-size:clamp(1.7rem,3.5vw,2.6rem);margin:.8rem 0 0" data-i18n="news.title"></h2>
+        <form id="newsForm">
+          <input type="email" required data-i18n-ph="news.ph" aria-label="email">
+          <button class="btn solid" type="submit" data-i18n="news.btn"></button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-foot"></div>
+  <script src="/js/app.js"></script>
+  <script src="/js/home.js"></script>
+</body>
+</html>

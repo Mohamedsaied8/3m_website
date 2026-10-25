@@ -1,0 +1,25 @@
+{
+  "brand": "3M Fashion",
+  "whatsapp": "",
+  "facebook": "https://www.facebook.com/3mhomewear/",
+  "shippingFee": 60,
+  "freeShippingOver": 2500,
+  "payment": {
+    "cashOnDelivery": true,
+    "instapay": {
+      "enabled": false,
+      "number": ""
+    },
+    "online": {
+      "enabled": false,
+      "note": "Online card payments are coming soon."
+    }
+  },
+  "hero": {
+    "titleEn": "Dress your home in elegance",
+    "subEn": "Premium home wear & eastern clothes — pure cotton, timeless cuts.",
+    "titleAr": "أناقة تليق بمنزلك",
+    "subAr": "ملابس منزلية وشرقية من أجود الأقمشة — قطن 100% بتصميمات عملية وأنيقة."
+  },
+  "adminPasswordHash": "bdfa6260f2fbbad5000f200868174c01734b6c4b8326cbda5020da3f3f1ca0c3"
+}

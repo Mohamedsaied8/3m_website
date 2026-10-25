@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopping Bag — 3M Fashion</title>
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;600&family=Almarai:wght@300;400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-page="">
+  <div id="site-head"></div>
+
+  <main style="padding-bottom:4rem">
+    <!-- ============ CART ============ -->
+    <div id="cartView">
+      <div class="page-title">
+        <span class="label" data-i18n="ct.crumb"></span>
+        <h1 style="font-size:clamp(1.8rem,3.6vw,2.6rem)" data-i18n="cart.title"></h1>
+      </div>
+      <div class="wrap">
+        <div id="cartContent">
+          <div class="steps"><span class="on" data-i18n="steps.1"></span><span data-i18n="steps.2"></span><span data-i18n="steps.3"></span></div>
+          <div class="cart-layout">
+            <div id="cartLines"></div>
+            <aside class="summary" id="summaryBox"></aside>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ CHECKOUT ============ -->
+    <div id="checkoutView" class="hidden wrap">
+      <div class="steps" style="margin-top:2rem"><span data-i18n="steps.1"></span><span class="on" data-i18n="steps.2"></span><span data-i18n="steps.3"></span></div>
+      <div class="cart-layout">
+        <form class="form-card" id="coForm" novalidate>
+          <h3 data-i18n="co.title"></h3>
+          <div class="f-grid">
+            <div class="field"><label data-i18n="co.name"></label><input id="coName" required minlength="3" autocomplete="name"></div>
+            <div class="field"><label data-i18n="co.phone"></label><input id="coPhone" required inputmode="tel" placeholder="01xxxxxxxxx" autocomplete="tel" dir="ltr"></div>
+            <div class="field"><label data-i18n="co.phone2"></label><input id="coPhone2" inputmode="tel" autocomplete="tel" dir="ltr"></div>
+            <div class="field"><label data-i18n="co.gov"></label><select id="coGov" required></select></div>
+            <div class="field"><label data-i18n="co.city"></label><input id="coCity" required></div>
+            <div class="field full"><label data-i18n="co.address"></label><textarea id="coAddress" rows="2" required data-i18n-ph="co.addressPh"></textarea></div>
+            <div class="field full"><label data-i18n="co.notes"></label><textarea id="coNotes" rows="2"></textarea></div>
+          </div>
+          <h3 style="margin-top:2rem" data-i18n="co.pay"></h3>
+          <div class="pay-opts" id="payOpts"></div>
+        </form>
+        <aside class="summary" id="coSummary"></aside>
+      </div>
+    </div>
+
+    <!-- ============ SUCCESS ============ -->
+    <div id="successView" class="hidden">
+      <div class="wrap">
+        <div class="success-panel">
+          <div class="ok-ring" id="okRing"></div>
+          <h2 style="margin-bottom:.6rem" data-i18n="thanks.t"></h2>
+          <p class="order-no"><span data-i18n="thanks.order"></span>: <b id="okOrderNo"></b></p>
+          <p style="color:var(--muted);margin:.8rem 0 1.8rem;font-weight:300" data-i18n="thanks.d"></p>
+          <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
+            <a id="okWa" class="btn solid" target="_blank" rel="noopener"><span class="waIco"></span> <span data-i18n="thanks.wa"></span></a>
+            <a class="btn" href="/" data-i18n="thanks.home"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-foot"></div>
+  <script src="/js/app.js"></script>
+  <script src="/js/cart.js"></script>
+</body>
+</html>

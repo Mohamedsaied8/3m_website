@@ -1,0 +1,839 @@
+[
+  {
+    "id": "p6ca23e560728",
+    "nameEn": "Summer Set 01",
+    "nameAr": "قنلة صيفي رقم 01",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/WhatsApp%20Image%202026-07-10%20at%206.05.13%20PM%20(2).jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 1,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339786
+  },
+  {
+    "id": "p9080435a76c2",
+    "nameEn": "Summer Set 02",
+    "nameAr": "قنلة صيفي رقم 02",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/WhatsApp%20Image%202026-07-10%20at%206.05.13%20PM.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 1,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339788
+  },
+  {
+    "id": "p62cf39c96407",
+    "nameEn": "Summer Set 03",
+    "nameAr": "قنلة صيفي رقم 03",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/WhatsApp%20Image%202026-07-10%20at%206.05.14%20PM.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 1,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339789
+  },
+  {
+    "id": "pf77617fa6198",
+    "nameEn": "Summer Set 04",
+    "nameAr": "قنلة صيفي رقم 04",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/WhatsApp%20Image%202026-07-10%20at%206.05.16%20PM.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 1,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339790
+  },
+  {
+    "id": "pb7b14eb10396",
+    "nameEn": "Summer Set 05",
+    "nameAr": "قنلة صيفي رقم 05",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/WhatsApp%20Image%202026-07-10%20at%206.05.18%20PM%20(2).jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 1,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339791
+  },
+  {
+    "id": "pc05f2b11a505",
+    "nameEn": "Summer Set 06",
+    "nameAr": "قنلة صيفي رقم 06",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/WhatsApp%20Image%202026-07-10%20at%206.05.18%20PM%20(4).jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 1,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339792
+  },
+  {
+    "id": "p66ba3bb5b474",
+    "nameEn": "Summer Set 07",
+    "nameAr": "قنلة صيفي رقم 07",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/WhatsApp%20Image%202026-07-10%20at%206.05.18%20PM.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 1,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339794
+  },
+  {
+    "id": "p064c914180f9",
+    "nameEn": "Summer Set 08",
+    "nameAr": "قنلة صيفي رقم 08",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/WhatsApp%20Image%202026-07-23%20at%203.02.29%20PM%20(1).jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339795
+  },
+  {
+    "id": "p65fa709fd3e7",
+    "nameEn": "Summer Set 09",
+    "nameAr": "قنلة صيفي رقم 09",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/WhatsApp%20Image%202026-07-23%20at%203.02.29%20PM.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339796
+  },
+  {
+    "id": "p6dae647e15de",
+    "nameEn": "Summer Set 10",
+    "nameAr": "قنلة صيفي رقم 10",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/WhatsApp%20Image%202026-07-23%20at%203.02.30%20PM%20(1).jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339797
+  },
+  {
+    "id": "pdfd25ef67301",
+    "nameEn": "Summer Set 11",
+    "nameAr": "قنلة صيفي رقم 11",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/WhatsApp%20Image%202026-07-23%20at%203.02.30%20PM.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339799
+  },
+  {
+    "id": "pd3315f0693e5",
+    "nameEn": "Summer Set 12 · Black",
+    "nameAr": "قنلة صيفي رقم 12 — أسود",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/black.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339800
+  },
+  {
+    "id": "p3d6017799686",
+    "nameEn": "Summer Set 13 · Blue",
+    "nameAr": "قنلة صيفي رقم 13 — أزرق",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/blue.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339801
+  },
+  {
+    "id": "p5c102b00379d",
+    "nameEn": "Summer Set 14 · Green",
+    "nameAr": "قنلة صيفي رقم 14 — أخضر",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/green.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339802
+  },
+  {
+    "id": "p216b5a0b99bf",
+    "nameEn": "Summer Set 15 · Grey",
+    "nameAr": "قنلة صيفي رقم 15 — رمادي",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/grey.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339803
+  },
+  {
+    "id": "p11bf242d043a",
+    "nameEn": "Summer Set 16 · Mint",
+    "nameAr": "قنلة صيفي رقم 16 — مينت",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/mint.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339804
+  },
+  {
+    "id": "p44128cf71299",
+    "nameEn": "Summer Set 17 · Navy",
+    "nameAr": "قنلة صيفي رقم 17 — كحلي",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/navy.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339805
+  },
+  {
+    "id": "p039d2cadd9b5",
+    "nameEn": "Summer Set 18 · Purple",
+    "nameAr": "قنلة صيفي رقم 18 — موف",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/purple.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339806
+  },
+  {
+    "id": "p2193b8ed4a58",
+    "nameEn": "Summer Set 19 · Black",
+    "nameAr": "قنلة صيفي رقم 19 — أسود",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/red_black_rose.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339807
+  },
+  {
+    "id": "p0429526de4d7",
+    "nameEn": "Summer Set 20 · White",
+    "nameAr": "قنلة صيفي رقم 20 — أبيض",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/white.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339808
+  },
+  {
+    "id": "p98049b9e1d78",
+    "nameEn": "Summer Set 21 · White",
+    "nameAr": "قنلة صيفي رقم 21 — أبيض",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/white2.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339809
+  },
+  {
+    "id": "p3636fb628540",
+    "nameEn": "Summer Set 22 · White",
+    "nameAr": "قنلة صيفي رقم 22 — أبيض",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/white3.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339810
+  },
+  {
+    "id": "pfa51c89c2221",
+    "nameEn": "Summer Set 23 · White",
+    "nameAr": "قنلة صيفي رقم 23 — أبيض",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/%D9%85%D9%88%D8%AF%D9%8A%D9%84%D8%A7%D8%AA_%D8%B5%D9%8A%D9%81%D9%8A/white4.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": false,
+    "createdAt": 1792933339812
+  },
+  {
+    "id": "p17bc471625ac",
+    "nameEn": "Summer Set 24 · Mint",
+    "nameAr": "قنلة صيفي رقم 24 — مينت",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/ai_generated_summer_models/model2_mint.png"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": true,
+    "createdAt": 1792933339813
+  },
+  {
+    "id": "pafbfaf5e42a7",
+    "nameEn": "Summer Set 25 · Purple",
+    "nameAr": "قنلة صيفي رقم 25 — موف",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/ai_generated_summer_models/model2_purple.png"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": true,
+    "createdAt": 1792933339814
+  },
+  {
+    "id": "pce8bd69990ed",
+    "nameEn": "Summer Set 26 · White",
+    "nameAr": "قنلة صيفي رقم 26 — أبيض",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/ai_generated_summer_models/model2_white.png"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": true,
+    "createdAt": 1792933339815
+  },
+  {
+    "id": "p05c2f9f02e98",
+    "nameEn": "Summer Set 27 · Blue",
+    "nameAr": "قنلة صيفي رقم 27 — أزرق",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/ai_generated_summer_models/viscous1_blue.png"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": true,
+    "createdAt": 1792933339816
+  },
+  {
+    "id": "p9007a210cf70",
+    "nameEn": "Summer Set 28 · Viscose",
+    "nameAr": "قنلة صيفي رقم 28 — فسكور",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/ai_generated_summer_models/viscous2.png"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": true,
+    "createdAt": 1792933339817
+  },
+  {
+    "id": "p56a29c3b7a8b",
+    "nameEn": "Summer Set 29 · Viscose",
+    "nameAr": "قنلة صيفي رقم 29 — فسكور",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/ai_generated_summer_models/viscous3.png"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": true,
+    "createdAt": 1792933339818
+  },
+  {
+    "id": "p9fdbee8a66ed",
+    "nameEn": "Summer Set 30 · Grey",
+    "nameAr": "قنلة صيفي رقم 30 — رمادي",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/ai_generated_summer_models/viscous4_grey.png"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": true,
+    "createdAt": 1792933339819
+  },
+  {
+    "id": "p65ec70fb5234",
+    "nameEn": "Summer Set 31 · Navy",
+    "nameAr": "قنلة صيفي رقم 31 — كحلي",
+    "descEn": "Soft, breathable fabric with an elegant cut — easy to wash and doesn’t fade.",
+    "descAr": "قماش ناعم ومريح بتصميم أنيق — سهلة الغسيل ولا تبهت.",
+    "price": 350,
+    "oldPrice": 0,
+    "images": [
+      "/assets/ai_generated_summer_models/viscous5_navy.png"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": "",
+    "category": "homewear",
+    "season": "summer",
+    "stock": true,
+    "featured": 0,
+    "visible": true,
+    "ai": true,
+    "createdAt": 1792933339820
+  }
+]

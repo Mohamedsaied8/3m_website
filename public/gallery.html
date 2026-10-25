@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gallery — 3M Fashion</title>
+  <meta name="description" content="The 3M Fashion lookbook — home wear & eastern clothes gallery.">
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&family=Almarai:wght@300;400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-page="gallery">
+  <div id="site-head"></div>
+
+  <main>
+    <div class="page-title">
+      <span class="label" data-i18n="gal.sub"></span>
+      <h1 data-i18n="gal.title"></h1>
+    </div>
+
+    <section class="pad" style="padding-top:2rem">
+      <div class="wrap">
+        <div class="shop-toolbar" style="position:static;margin-bottom:1.6rem;border:0">
+          <div class="chips" id="galChips" style="justify-content:center"></div>
+        </div>
+        <div class="masonry" id="galGrid"></div>
+        <div class="empty-state hidden" id="galEmpty">
+          <h3 data-i18n="shop.empty.t"></h3>
+          <p data-i18n="shop.empty.d"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-foot"></div>
+  <script src="/js/app.js"></script>
+  <script src="/js/gallery.js"></script>
+</body>
+</html>
