@@ -1,0 +1,43 @@
+# systemd service for the 3M Fashion store.
+# Installed by deploy/install.sh to /etc/systemd/system/3m-fashion.service
+#   sudo systemctl status 3m-fashion      # is it running?
+#   sudo journalctl -u 3m-fashion -f      # live logs
+#   sudo systemctl restart 3m-fashion     # after updating files
+
+[Unit]
+Description=3M Fashion online store
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=mfashion
+Group=mfashion
+WorkingDirectory=/opt/3m-fashion
+ExecStart=/usr/bin/env node /opt/3m-fashion/server.js
+
+Environment=NODE_ENV=production
+Environment=PORT=3000
+# nginx sits in front: listen locally only, trust its X-Real-IP header.
+Environment=HOST=127.0.0.1
+Environment=TRUST_PROXY=1
+# Set to 1 once the site is served over HTTPS (certbot step in deploy/README.md).
+Environment=COOKIE_SECURE=0
+
+Restart=always
+RestartSec=3
+
+# Hardening: the app can only write its data and uploads.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/3m-fashion/data /opt/3m-fashion/public/uploads
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

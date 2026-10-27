@@ -651,3 +651,20 @@ select.mini {
 .page-title .label { display: block; margin-bottom: .7rem; }
 .hidden { display: none !important; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* ---------- floating WhatsApp button ---------- */
+.wa-float {
+  position: fixed; bottom: 1.2rem; inset-inline-end: 1.2rem; z-index: 120;
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .75rem; border-radius: 999px;
+  background: #25D366; color: #fff; text-decoration: none;
+  font-weight: 600; font-size: .92rem; line-height: 1;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .22);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.wa-float svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.6; flex: none; }
+.wa-float span { max-width: 0; overflow: hidden; white-space: nowrap; transition: max-width .3s ease, padding .3s ease; }
+.wa-float:hover, .wa-float:focus-visible { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(0, 0, 0, .28); }
+.wa-float:hover span, .wa-float:focus-visible span { max-width: 14rem; padding-inline-end: .4rem; }
+@media (max-width: 600px) { .wa-float { bottom: 1rem; inset-inline-end: 1rem; } }
+@media print { .wa-float { display: none; } }

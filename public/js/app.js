@@ -100,6 +100,10 @@ const I18N = {
   'c.shipping': ['Shipping', 'الشحن'],
   'c.total': ['Total', 'الإجمالي'],
   'c.free': ['Free', 'مجاني'],
+  'c.ship.later': ['Added on confirmation', 'تُضاف عند تأكيد الطلب'],
+  'c.ship.gov': ['Depends on governorate', 'حسب المحافظة'],
+  'c.ship.note': ['We will call you to confirm the order and tell you the shipping fee.', 'هنكلمك نأكد الطلب ونقولك مصاريف الشحن.'],
+  'c.total.noship': ['Total before shipping', 'الإجمالي قبل الشحن'],
   'c.remove': ['Remove', 'حذف'],
   'steps.1': ['Bag', 'الكارت'],
   'steps.2': ['Details', 'بياناتك'],
@@ -127,6 +131,8 @@ const I18N = {
   'thanks.t': ['Thank you — your order is placed', 'شكراً — طلبك اتسجل بنجاح'],
   'thanks.d': ['We have received your order and will call you to confirm shortly.', 'وصلنا طلبك، وهنكلمك قريباً للتأكيد.'],
   'thanks.order': ['Order number', 'رقم الطلب'],
+  'wa.float': ['Chat on WhatsApp', 'كلمينا واتساب'],
+  'wa.float.msg': ['Hello 3M Fashion, I have a question', 'أهلاً 3M Fashion، عندي استفسار'],
   'thanks.wa': ['Send order on WhatsApp', 'ابعت الطلب واتساب'],
   'thanks.home': ['Back to home', 'الرئيسية'],
 
@@ -277,7 +283,8 @@ function renderProductGrid(list, selector) {
 /* governorates of Egypt */
 const GOVS = [['Giza', 'الجيزة'], ['Cairo', 'القاهرة'], ['Alexandria', 'الإسكندرية'], ['Qalyubia', 'القليوبية'], ['Sharqia', 'الشرقية'], ['Dakahlia', 'الدقهلية'], ['Gharbia', 'الغربية'], ['Monufia', 'المنوفية'], ['Beheira', 'البحيرة'], ['Kafr El Sheikh', 'كفر الشيخ'], ['Damietta', 'دمياط'], ['Port Said', 'بورسعيد'], ['Ismailia', 'الإسماعيلية'], ['Suez', 'السويس'], ['North Sinai', 'شمال سيناء'], ['South Sinai', 'جنوب سيناء'], ['Faiyum', 'الفيوم'], ['Beni Suef', 'بني سويف'], ['Minya', 'المنيا'], ['Asyut', 'أسيوط'], ['Sohag', 'سوهاج'], ['Qena', 'قنا'], ['Luxor', 'الأقصر'], ['Aswan', 'أسوان'], ['Red Sea', 'البحر الأحمر'], ['New Valley', 'الوادي الجديد'], ['Matrouh', 'مطروح']];
 function govOptions() {
-  return GOVS.map(([en, ar]) => `<option value="${esc(en)}">${esc(LANG === 'ar' ? ar : en)}</option>`).join('');
+  const off = (SETTINGS && SETTINGS.deliveryOff) || [];
+  return GOVS.filter(([en]) => !off.includes(en)).map(([en, ar]) => `<option value="${esc(en)}">${esc(LANG === 'ar' ? ar : en)}</option>`).join('');
 }
 
 /* ------------------------------------------------------------ settings */
@@ -393,6 +400,7 @@ async function hydrateChrome() {
     const fl = $('#footLinks');
     if (fl) fl.innerHTML = `<a href="${esc(s.facebook)}" target="_blank" rel="noopener">Facebook</a>${s.whatsapp ? `<a href="https://wa.me/${esc(s.whatsapp)}" target="_blank" rel="noopener">WhatsApp</a>` : ''}`;
   }
+  renderWaFloat(s.whatsapp);
   const fc = $('#footContact');
   if (fc) {
     fc.innerHTML = `
@@ -400,6 +408,24 @@ async function hydrateChrome() {
       <div class="row">${ico('wa')}<a href="https://wa.me/${esc(s.whatsapp)}" target="_blank" rel="noopener">${LANG === 'ar' ? 'واتساب مباشر' : 'WhatsApp us'}</a></div>` : ''}
       <div class="row">${ico('pin')}<span>${LANG === 'ar' ? 'القاهرة، مصر' : 'Cairo, Egypt'}</span></div>`;
   }
+}
+
+/* floating WhatsApp button: store pages only (not admin), hidden when no number is set */
+function renderWaFloat(num) {
+  const digits = String(num || '').replace(/\D/g, '');
+  const old = $('#waFloat');
+  if (old) old.remove();
+  if (!digits || !$('#site-head')) return;
+  const a = document.createElement('a');
+  a.id = 'waFloat';
+  a.className = 'wa-float';
+  a.href = `https://wa.me/${digits}?text=${encodeURIComponent(t('wa.float.msg'))}`;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  a.setAttribute('aria-label', t('wa.float'));
+  a.title = t('wa.float');
+  a.innerHTML = `${ico('wa')}<span>${esc(t('wa.float'))}</span>`;
+  document.body.appendChild(a);
 }
 
 function initPage() {

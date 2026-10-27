@@ -6,6 +6,7 @@
 let PRODUCTS = [];
 let S = null;          // settings
 let paymentChoice = 'cash_on_delivery';
+let chosenGov = '';    // governorate picked at checkout ('' on the cart page)
 
 function pmap() { const m = new Map(); PRODUCTS.forEach(p => m.set(p.id, p)); return m; }
 
@@ -13,9 +14,27 @@ function cartTotals() {
   const m = pmap();
   const items = getCart().map(i => ({ ...i, p: m.get(i.id) })).filter(i => i.p);
   const subtotal = items.reduce((s, i) => s + (i.p.price || 0) * i.qty, 0);
-  const shipping = !items.length ? 0
-    : (S.freeShippingOver > 0 && subtotal >= S.freeShippingOver ? 0 : (Number(S.shippingFee) || 0));
-  return { items, subtotal, shipping, total: subtotal + shipping };
+  const shipping = items.length ? shippingQuote(subtotal) : 0;
+  return { items, subtotal, shipping, total: subtotal + (typeof shipping === 'number' ? shipping : 0) };
+}
+
+/* Same rules as shippingFor() in server.js.
+   Returns a number, 'later' (fee hidden, owner adds it) or 'gov' (depends on governorate, none chosen yet). */
+function shippingQuote(subtotal) {
+  if (S.freeShippingOver > 0 && subtotal >= S.freeShippingOver) return 0;
+  if (S.showShippingFee === false) return 'later';
+  const rates = S.shippingRates || {};
+  if (chosenGov) return Number.isFinite(rates[chosenGov]) ? rates[chosenGov] : (Number(S.shippingFee) || 0);
+  const fees = new Set(GOVS.map(([en]) => en).filter(en => !(S.deliveryOff || []).includes(en))
+    .map(en => Number.isFinite(rates[en]) ? rates[en] : (Number(S.shippingFee) || 0)));
+  return fees.size === 1 ? [...fees][0] : 'gov';
+}
+
+function shippingCell(sh) {
+  if (sh === 0) return `<span class="free">${esc(t('c.free'))}</span>`;
+  if (sh === 'later') return `<span>${esc(t('c.ship.later'))}</span>`;
+  if (sh === 'gov') return `<span>${esc(t('c.ship.gov'))}</span>`;
+  return `<span>${money(sh)}</span>`;
 }
 
 function summaryHTML(tot, withBtn) {
@@ -28,9 +47,9 @@ function summaryHTML(tot, withBtn) {
         <span>${money(i.p.price * i.qty)}</span>
       </div>`).join('')}
     <div class="s-row"><span>${esc(t('c.subtotal'))}</span><span>${money(tot.subtotal)}</span></div>
-    <div class="s-row"><span>${esc(t('c.shipping'))}</span>
-      <span class="${tot.shipping === 0 ? 'free' : ''}">${tot.shipping === 0 ? esc(t('c.free')) : money(tot.shipping)}</span></div>
-    <div class="s-row total"><span>${esc(t('c.total'))}</span><span>${money(tot.total)}</span></div>
+    <div class="s-row"><span>${esc(t('c.shipping'))}</span>${shippingCell(tot.shipping)}</div>
+    <div class="s-row total"><span>${esc(t(typeof tot.shipping === 'number' ? 'c.total' : 'c.total.noship'))}</span><span>${money(tot.total)}</span></div>
+    ${tot.shipping === 'later' ? `<p style="font-size:.8rem;color:rgba(247,244,238,.6);margin-top:.8rem">${esc(t('c.ship.note'))}</p>` : ''}
     ${withBtn ? `<button class="btn gold" id="toCheckout" style="width:100%;justify-content:center;margin-top:1.6rem" data-i18n="c.checkout"></button>` : ''}
   `;
 }
@@ -89,16 +108,17 @@ function bumpQty(id, size, d) {
 
 /* ------------------------------------------------------------- checkout */
 function goCheckout() {
+  chosenGov = '';
   const tot = cartTotals();
   $('#cartView').classList.add('hidden');
   $('#checkoutView').classList.remove('hidden');
   $('#coGov').innerHTML = `<option value="" disabled selected>${LANG === 'ar' ? 'اختر المحافظة' : 'Select governorate'}</option>` + govOptions();
+  $('#coGov').onchange = () => { chosenGov = $('#coGov').value; $('#coSummary').innerHTML = summaryHTML(cartTotals(), false); };
   $('#coSummary').innerHTML = summaryHTML(tot, false);
   $('#coForm')?.querySelector('.note')?.remove();
   renderPayOpts(tot);
   applyI18n();
-  if (tot.shipping === 0 && S.freeShippingOver > 0) { /* free shipping hint */ }
-  else if (S.freeShippingOver > 0) {
+  if (S.freeShippingOver > 0 && tot.subtotal < S.freeShippingOver) {
     $('#coForm').insertAdjacentHTML('afterbegin', `<div class="note">${LANG === 'ar'
       ? `أضف بقيمة ${money(S.freeShippingOver - tot.subtotal)} للحصول على شحن مجاني`
       : `Spend ${money(S.freeShippingOver - tot.subtotal)} more for free shipping`}</div>`);
@@ -180,8 +200,8 @@ async function finishSuccess(res) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const waMessage = LANG === 'ar'
-    ? `مرحباً 3M 👋\nطلبي رقم ${res.id}\nالإجمالي: ${LANG === 'ar' ? res.total + ' ج.م' : res.total + ' EGP'}\nطريقة الدفع: ${paymentChoice === 'instapay' ? 'Instapay' : 'الدفع عند الاستلام'}`
-    : `Hello 3M 👋\nMy order is ${res.id}\nTotal: ${res.total} EGP\nPayment: ${paymentChoice === 'instapay' ? 'Instapay' : 'Cash on delivery'}`;
+    ? `مرحباً 3M 👋\nطلبي رقم ${res.id}\nالإجمالي: ${res.total} ج.م${res.shipping === null ? ' + الشحن' : ''}\nطريقة الدفع: ${paymentChoice === 'instapay' ? 'Instapay' : 'الدفع عند الاستلام'}`
+    : `Hello 3M 👋\nMy order is ${res.id}\nTotal: ${res.total} EGP${res.shipping === null ? ' + shipping' : ''}\nPayment: ${paymentChoice === 'instapay' ? 'Instapay' : 'Cash on delivery'}`;
   $('#okWa').href = S.whatsapp ? `https://wa.me/${String(S.whatsapp).replace(/\D/g, '')}?text=${encodeURIComponent(waMessage)}` : '#';
   applyI18n();
 }

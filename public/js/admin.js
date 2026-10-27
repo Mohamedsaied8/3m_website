@@ -315,7 +315,11 @@ function renderOrders(box) {
           <span style="color:#777;font-size:.8rem">${esc(o.customer.governorate)} · ${esc(o.customer.city)} — ${esc(o.customer.address)}</span>
           ${o.customer.notes ? `<br><span style="color:#999;font-size:.8rem">“${esc(o.customer.notes)}”</span>` : ''}</td>
         <td>${o.items.map(i => `${esc(i.nameEn || i.nameAr)}${i.size ? ' (' + esc(i.size) + ')' : ''} ×${i.qty}`).join('<br>')}</td>
-        <td><b>${o.total.toLocaleString('en-EG')}</b><br><span style="color:#999;font-size:.8rem">ship: ${o.shipping ? o.shipping.toLocaleString('en-EG') : 'free'}</span></td>
+        <td><b>${o.total.toLocaleString('en-EG')}</b><br>
+          <label style="color:#999;font-size:.8rem;white-space:nowrap">ship · شحن
+            <input type="number" min="0" data-ship="${esc(o.id)}" value="${o.shipping ?? ''}" placeholder="add" dir="ltr"
+              style="width:5.5rem;padding:.15rem .35rem;margin-inline-start:.3rem;${o.shipping === null || o.shipping === undefined ? 'border-color:var(--logo-red)' : ''}"></label>
+          ${o.shipping === null || o.shipping === undefined ? '<br><span style="color:var(--logo-red);font-size:.75rem">Shipping not added yet · الشحن لم يُضف</span>' : ''}</td>
         <td>${o.paymentMethod === 'instapay' ? 'Instapay' : 'Cash on delivery'}</td>
         <td><select data-oid="${esc(o.id)}" class="mini">
           ${pills.map(s => `<option value="${s}" ${o.status === s ? 'selected' : ''}>${s}</option>`).join('')}
@@ -324,6 +328,12 @@ function renderOrders(box) {
       </tr>`).join('') : '<tr><td colspan="7" style="text-align:center;padding:2rem;color:#999">No orders yet — they will appear the moment a customer checks out. · لا توجد طلبات بعد</td></tr>'}
     </tbody></table>`;
 
+  box.querySelectorAll('input[data-ship]').forEach(inp => inp.addEventListener('change', async () => {
+    if (inp.value === '' || Number(inp.value) < 0) return;
+    await api('/api/orders/' + inp.dataset.ship, { method: 'PUT', body: { shipping: Number(inp.value) } });
+    toast('Shipping saved · تم حفظ الشحن');
+    bootData();
+  }));
   box.querySelectorAll('select[data-oid]').forEach(sel => sel.addEventListener('change', async () => {
     await api('/api/orders/' + sel.dataset.oid, { method: 'PUT', body: { status: sel.value } });
     toast('Status updated');
@@ -341,19 +351,37 @@ function renderSettings(box) {
     <form id="setForm" class="form-card" style="max-width:760px">
       <h3>Store essentials</h3>
       <div class="f-grid">
-        <div class="field"><label>WhatsApp number (for orders) · رقم واتساب</label>
-          <input id="sWa" value="${esc(s.whatsapp || '')}" dir="ltr" placeholder="2010XXXXXXXX"></div>
+        <div class="field"><label>WhatsApp number (floating chat button + orders) · رقم واتساب — e.g. 01012345678</label>
+          <input id="sWa" value="${esc(s.whatsapp || '')}" dir="ltr" placeholder="010XXXXXXXX"></div>
         <div class="field"><label>Facebook page URL</label>
           <input id="sFb" value="${esc(s.facebook || '')}" dir="ltr"></div>
-        <div class="field"><label>Shipping fee EGP · قيمة الشحن</label>
-          <input id="sShip" type="number" min="0" value="${s.shippingFee ?? ''}" dir="ltr"></div>
-        <div class="field"><label>Free shipping over EGP · شحن مجاني أعلى من (0 = off)</label>
-          <input id="sFree" type="number" min="0" value="${s.freeShippingOver ?? ''}" dir="ltr"></div>
         <div class="field"><label>Hero title — English</label><input id="sHE" value="${esc(s.hero?.titleEn || '')}" dir="ltr"></div>
         <div class="field"><label>عنوان الواجهة — عربي</label><input id="sHA" value="${esc(s.hero?.titleAr || '')}"></div>
         <div class="field full"><label>Hero subtitle — English</label><input id="sHsE" value="${esc(s.hero?.subEn || '')}" dir="ltr"></div>
         <div class="field full"><label>الوصف — عربي</label><input id="sHsA" value="${esc(s.hero?.subAr || '')}"></div>
       </div>
+
+      <h3 style="margin-top:2rem">Shipping · الشحن</h3>
+      <label class="switch" style="margin-bottom:.4rem"><input type="checkbox" id="sShowShip" ${s.showShippingFee !== false ? 'checked' : ''}><span class="track"></span>
+        Show shipping fee to customers · إظهار مصاريف الشحن للعميل</label>
+      <p style="color:#777;font-size:.8rem;margin:0 0 1rem">When off, checkout says “Added on confirmation” and you type the fee on each order in the Orders tab. ·
+        لو مقفولة، العميل يشوف «تُضاف عند تأكيد الطلب» وانت تكتب الشحن لكل طلب من صفحة الطلبات.</p>
+      <div class="f-grid">
+        <div class="field"><label>Default shipping fee EGP · الشحن الافتراضي</label>
+          <input id="sShip" type="number" min="0" value="${s.shippingFee ?? ''}" dir="ltr"></div>
+        <div class="field"><label>Free shipping over EGP · شحن مجاني أعلى من (0 = off)</label>
+          <input id="sFree" type="number" min="0" value="${s.freeShippingOver ?? ''}" dir="ltr"></div>
+      </div>
+      <p style="color:#777;font-size:.8rem;margin:1rem 0 .5rem">Fee per governorate. Leave empty to use the default fee. Untick “Deliver” to hide a governorate from checkout. ·
+        الشحن لكل محافظة. سيبه فاضي للشحن الافتراضي. شيل علامة «توصيل» لإخفاء المحافظة.</p>
+      <div style="max-height:420px;overflow:auto;border:1px solid var(--line)">
+      <table class="tbl" style="border:0"><thead><tr><th>Governorate · المحافظة</th><th>Fee EGP · الشحن</th><th>Deliver · توصيل</th></tr></thead><tbody>
+        ${GOVS.map(([en, ar]) => `<tr>
+          <td>${esc(en)} · ${esc(ar)}</td>
+          <td><input type="number" min="0" data-rate="${esc(en)}" value="${s.shippingRates?.[en] ?? ''}" placeholder="${esc(s.shippingFee ?? '')}" dir="ltr" style="width:7rem;padding:.25rem .5rem"></td>
+          <td><label class="switch"><input type="checkbox" data-deliver="${esc(en)}" ${(s.deliveryOff || []).includes(en) ? '' : 'checked'}><span class="track"></span></label></td>
+        </tr>`).join('')}
+      </tbody></table></div>
 
       <h3 style="margin-top:2rem">Payment methods</h3>
       <div style="display:grid;gap:.8rem">
@@ -380,6 +408,10 @@ function renderSettings(box) {
       facebook: byId('sFb').value.trim(),
       shippingFee: Number(byId('sShip').value) || 0,
       freeShippingOver: Number(byId('sFree').value) || 0,
+      showShippingFee: byId('sShowShip').checked,
+      shippingRates: Object.fromEntries([...box.querySelectorAll('input[data-rate]')]
+        .filter(i => i.value !== '').map(i => [i.dataset.rate, Number(i.value)])),
+      deliveryOff: [...box.querySelectorAll('input[data-deliver]')].filter(i => !i.checked).map(i => i.dataset.deliver),
       hero: {
         titleEn: byId('sHE').value.trim(), titleAr: byId('sHA').value.trim(),
         subEn: byId('sHsE').value.trim(), subAr: byId('sHsA').value.trim(),

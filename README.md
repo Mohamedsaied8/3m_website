@@ -13,6 +13,8 @@ You need only Node.js (any recent version). **No npm install required.**
 | Windows | Double-click `start.bat` |
 | Linux / Mac | `./start.sh` or `node server.js` |
 
+On Linux / Mac you can also keep it running in the background: `./start.sh start`, then `stop`, `restart`, `status` or `logs`. To install it as a permanent service on a server, use `./start.sh install` (see `deploy/README.md`).
+
 Then open:
 
 - **Store** → http://localhost:3000
@@ -81,6 +83,6 @@ Every image on the site is **garment-only** (hanger / flat-lay shots) — no peo
 
 ## ☁️ Putting it online later
 
-Any host that runs Node.js works (small VPS, Railway, Render, Hostinger…) — the port comes from the host's `PORT` variable, which `server.js` already reads. Upload the whole folder (keep `assets/`), run the server, put your domain/HTTPS in front, then set the real WhatsApp number in **Admin ▸ Settings**.
+Any host that runs Node.js works (small VPS, Railway, Render, Hostinger…) — the port comes from the host's `PORT` variable, which `server.js` already reads. Upload the whole folder (keep `assets/`), run the server, put your domain/HTTPS in front, then set the real WhatsApp number in **Admin ▸ Settings**. **For your own Linux server, follow `deploy/README.md`** (runs the store as a service with HTTPS).
 
 **Facebook:** the footer already links https://www.facebook.com/3mhomewear/ — change it any time in Settings.

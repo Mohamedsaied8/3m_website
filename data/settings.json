@@ -1,13 +1,16 @@
 {
   "brand": "3M Fashion",
-  "whatsapp": "",
+  "whatsapp": "01111159633",
   "facebook": "https://www.facebook.com/3mhomewear/",
   "shippingFee": 60,
   "freeShippingOver": 2500,
+  "showShippingFee": false,
+  "shippingRates": {},
+  "deliveryOff": [],
   "payment": {
     "cashOnDelivery": true,
     "instapay": {
-      "enabled": false,
+      "enabled": true,
       "number": ""
     },
     "online": {

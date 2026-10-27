@@ -3,7 +3,7 @@
 Handover notes for any AI agent or developer continuing this project.
 Read this first, then `README.md` (written for the shop owner, not developers).
 
-Last updated: 2026-10-25
+Last updated: 2026-10-26
 
 ---
 
@@ -22,6 +22,7 @@ an Egyptian women's home-wear brand. Prices are in EGP. Customers check out with
 
 ```bash
 node server.js              # http://localhost:3000   (or ./start.sh, or start.bat on Windows)
+./start.sh start|stop|restart|status|logs   # background server on Linux/macOS
 PORT=8080 node server.js    # other port
 ```
 
@@ -45,7 +46,8 @@ PORT=8080 node server.js    # other port
 | `data/products.json` | Product catalogue (the source of truth, edited by admin). |
 | `data/settings.json` | Store settings + admin password hash. |
 | `data/orders.json` | Customer orders: personal data, **git-ignored, never commit**. Created on first order. |
-| `start.sh` / `start.bat` | Launchers. |
+| `start.sh` / `start.bat` | Launchers. `start.sh` with no argument runs in the foreground. `start` / `stop` / `restart` / `status` / `logs` manage a background server (pid + log in git-ignored `.run/`). `install` runs `deploy/install.sh` with sudo. |
+| `deploy/` | Linux server deployment: systemd unit `3m-fashion.service`, `install.sh` (copies to `/opt/3m-fashion`, never overwrites live `data/` or uploads), `nginx.conf`, and `README.md` with step-by-step instructions. |
 
 ## 4. Data model
 
@@ -65,9 +67,10 @@ PORT=8080 node server.js    # other port
 If `products.json` is missing, `seedProducts()` rebuilds it from the photos in `assets/`.
 
 **Order** (`data/orders.json`): `{ id: '3M-1001', status: 'new'|'confirmed'|'delivered'|'cancelled', paymentMethod: 'cash_on_delivery'|'instapay', customer: { name, phone, altPhone, governorate, city, address, notes }, items: [{ id, nameEn, nameAr, price, qty, size }], subtotal, shipping, total, createdAt, updatedAt? }`.
+`shipping: null` means the fee was hidden from the customer and the owner hasn't added it yet (admin ▸ Orders has an input per order; `total` is recomputed).
 Prices are always re-read from the server's product data. The client's prices are never trusted.
 
-**Settings** (`data/settings.json`): `whatsapp` (digits, e.g. `2010…`), `facebook`, `shippingFee`, `freeShippingOver` (0 = off), `payment.{cashOnDelivery, instapay:{enabled,number}, online:{enabled,note}}`, `hero.{titleEn,subEn,titleAr,subAr}`, `adminPasswordHash`.
+**Settings** (`data/settings.json`): `whatsapp` (digits, e.g. `2010…`; normalised on save), `facebook`, `shippingFee` (default fee), `freeShippingOver` (0 = off), `showShippingFee` (false ⇒ checkout says "added on confirmation"), `shippingRates` (`{ 'Cairo': 40 }` by English governorate name, missing ⇒ default), `deliveryOff` (English names hidden from checkout and rejected by the server), `payment.{cashOnDelivery, instapay:{enabled,number}, online:{enabled,note}}`, `hero.{titleEn,subEn,titleAr,subAr}`, `adminPasswordHash`.
 `normalizeSettings()` merges with `DEFAULT_SETTINGS`, so new keys get defaults automatically.
 
 ## 5. API (all JSON)
@@ -82,8 +85,8 @@ Prices are always re-read from the server's product data. The client's prices ar
 | `GET /api/products/:id` | | One product (404 if hidden and not admin). |
 | `POST /api/products` · `PUT /api/products/:id` · `DELETE /api/products/:id` | admin | Create / partial update / delete. |
 | `POST /api/upload` `{files:[{name,data:'data:image/...;base64,...'}]}` | admin | Saves to `public/uploads/`, returns `{urls}`. PNG/JPG/WEBP/GIF, ≤15 MB each, ≤10 per call. |
-| `POST /api/orders` | | Validates Egyptian mobile `^0?1\d{8,9}$`, name ≥ 3, address ≥ 8; only visible + in-stock products; computes shipping. Returns `{id, subtotal, shipping, total, paymentUrl:null}`. |
-| `GET /api/orders` · `PUT /api/orders/:id {status}` | admin | List (newest first) / change status. |
+| `POST /api/orders` | | Validates Egyptian mobile `^0?1\d{8,9}$`, name ≥ 3, address ≥ 8; only visible + in-stock products; governorate required and not in `deliveryOff`; computes shipping with `shippingFor()` (mirrored by `shippingQuote()` in `cart.js`, so keep them in sync). Returns `{id, subtotal, shipping, total, paymentUrl:null}`. |
+| `GET /api/orders` · `PUT /api/orders/:id {status?, shipping?}` | admin | List (newest first) / change status or set the shipping fee (recomputes total). |
 
 **Payment gateway:** not implemented. The extension point is the comment `/* === PAYMENT GATEWAY HOOK === */` in `POST /api/orders`. The checkout already redirects if the response has a `paymentUrl`. The "online card" option shows "Coming soon" until `payment.online.enabled` is true.
 
@@ -135,7 +138,12 @@ google-chrome --headless=new --no-sandbox --user-data-dir="$T/chr" --enable-logg
 - No orders yet. No uploads yet.
 - Git repo initialised. `data/orders.json` and `public/uploads/*` are ignored.
 
-### Fixed in this session
+### Added 2026-10-26
+- Deployment kit in `deploy/` (systemd + nginx + certbot guide). `server.js` reads optional env vars: `HOST` (bind address), `TRUST_PROXY=1` (login rate limit uses nginx's `X-Real-IP`), and `COOKIE_SECURE=1` (adds the `Secure` flag to the admin cookie). When they aren't set, nothing changes. Not yet deployed anywhere.
+- Floating WhatsApp button (bottom corner, mirrors in Arabic) on every store page, not on admin. It appears only when Admin ▸ Settings ▸ WhatsApp number is filled in. The server's `normalizeWhatsapp()` turns `010…` / `+20 10…` / `0020…` into `2010…`, so the owner can type the number either way. Code: `renderWaFloat()` in `app.js`, `.wa-float` in `style.css`.
+- Shipping per governorate: fee per governorate, turn delivery off per governorate, and a switch to hide the fee from customers (owner adds it per order). All in Admin ▸ Settings ▸ Shipping. No rates are set yet, so every governorate uses the default fee of 60 EGP.
+
+### Fixed 2026-10-25
 1. Product page crashed (`SETTINGS` declared twice), so nobody could add to the bag. Fixed in `product.js`.
 2. One malformed URL (e.g. `/%E0%A4%A`) **crashed the whole server**. It now returns 400.
 3. Saving Admin ▸ Settings silently **reset the admin password to `3m-admin`**. The hash is now preserved.
@@ -156,14 +164,14 @@ Roughly by value to the owner:
 2. **Newsletter form is fake.** It only shows a toast and stores nothing. Either save emails (e.g. `data/subscribers.json` + admin tab) or remove it.
 3. **Order notifications:** the owner only sees orders by opening admin. Options: a WhatsApp click-to-chat link per order in admin, or email via an SMTP service.
 4. **Payment gateway** (Paymob is the common Egyptian choice) at the marked hook, plus `/api/payment/callback`.
-5. **Security hardening before going public:** salted password hashing (`crypto.scrypt`), persisted sessions, `Secure` cookie flag behind HTTPS, CSRF is mitigated only by `SameSite=Strict`.
+5. **Security hardening before going public:** salted password hashing (`crypto.scrypt`), persisted sessions, `Secure` cookie flag (done: `COOKIE_SECURE=1`), CSRF is mitigated only by `SameSite=Strict`.
 6. Orphaned uploads are never deleted when a product or photo is removed.
 7. Stock is just in/out, with no quantities. Sizes can't be sold out individually.
 8. SEO: product titles/meta are set client-side only. There's no `sitemap.xml` or Open Graph tags (these matter for Facebook sharing).
 9. Shop search only matches names client-side (the server supports descriptions too).
 10. `withLock()` in `server.js` is a no-op busy-wait (all writes are synchronous anyway). Harmless.
 11. Footer copyright year is hard-coded (`ft.rights`).
-12. Deployment: README lists hosts. Nothing is configured yet (no HTTPS, no process manager).
+12. Deployment: the `deploy/` kit exists (systemd + nginx + HTTPS). It hasn't been run on a real server yet.
 
 ## 11. Working rules for agents
 

@@ -23,6 +23,13 @@ const ASSETS = path.join(ROOT, 'assets');
 const DATA = path.join(ROOT, 'data');
 const UPLOADS = path.join(PUBLIC, 'uploads');
 const PORT = process.env.PORT || 3000;
+// Deployment options (all optional; see deploy/README.md):
+//   HOST=127.0.0.1   listen only locally (when nginx sits in front)
+//   TRUST_PROXY=1    take the client IP from nginx's X-Real-IP header (for the login rate limit)
+//   COOKIE_SECURE=1  send the admin cookie over HTTPS only
+const HOST = process.env.HOST || undefined;
+const TRUST_PROXY = process.env.TRUST_PROXY === '1';
+const COOKIE_FLAGS = 'HttpOnly; Path=/; SameSite=Strict' + (process.env.COOKIE_SECURE === '1' ? '; Secure' : '');
 
 for (const d of [DATA, UPLOADS]) fs.mkdirSync(d, { recursive: true });
 
@@ -57,6 +64,9 @@ const DEFAULT_SETTINGS = {
   facebook: 'https://www.facebook.com/3mhomewear/',
   shippingFee: 60,              // EGP
   freeShippingOver: 2500,       // EGP, 0 = disabled
+  showShippingFee: true,        // false ⇒ customers see "added on confirmation"; admin sets it per order
+  shippingRates: {},            // { 'Cairo': 50, ... } by English governorate name; missing ⇒ shippingFee
+  deliveryOff: [],              // English governorate names we don't deliver to (hidden at checkout)
   payment: {
     cashOnDelivery: true,
     instapay: { enabled: false, number: '' },
@@ -70,6 +80,14 @@ const DEFAULT_SETTINGS = {
   },
   adminPasswordHash: crypto.createHash('sha256').update('3m-admin').digest('hex'),
 };
+// Accepts 010…, +20 10…, 0020 10… or 2010… and returns international digits (2010…) for wa.me links.
+function normalizeWhatsapp(v) {
+  let d = String(v || '').replace(/\D/g, '').replace(/^00/, '');
+  if (/^01\d{9}$/.test(d)) d = '2' + d;
+  else if (/^1\d{9}$/.test(d)) d = '20' + d;
+  return d.slice(0, 15);
+}
+
 function normalizeSettings(s) {
   const out = {
     ...DEFAULT_SETTINGS, ...s,
@@ -78,9 +96,29 @@ function normalizeSettings(s) {
   };
   out.payment.instapay = { ...DEFAULT_SETTINGS.payment.instapay, ...(s.payment?.instapay || {}) };
   out.payment.online = { ...DEFAULT_SETTINGS.payment.online, ...(s.payment?.online || {}) };
+  out.shippingFee = Math.max(0, Number(out.shippingFee) || 0);
+  out.freeShippingOver = Math.max(0, Number(out.freeShippingOver) || 0);
+  out.showShippingFee = out.showShippingFee !== false;
+  const rates = {};
+  for (const [gov, fee] of Object.entries(out.shippingRates || {})) {
+    if (fee !== '' && fee !== null && Number.isFinite(Number(fee)) && Number(fee) >= 0) rates[String(gov).slice(0, 60)] = Number(fee);
+  }
+  out.shippingRates = rates;
+  out.deliveryOff = Array.isArray(out.deliveryOff) ? out.deliveryOff.map(g => String(g).slice(0, 60)) : [];
+  out.whatsapp = normalizeWhatsapp(out.whatsapp);
   return out;
 }
 if (settings === null) { settings = normalizeSettings({}); saveSettings(); }
+settings = normalizeSettings(settings);
+
+/* Shipping for one order. Returns a number, or null when the fee is hidden
+   from customers and the owner adds it later in admin. */
+function shippingFor(gov, subtotal) {
+  if (settings.freeShippingOver > 0 && subtotal >= settings.freeShippingOver) return 0;
+  if (!settings.showShippingFee) return null;
+  const rate = settings.shippingRates[gov];
+  return Number.isFinite(rate) ? rate : settings.shippingFee;
+}
 
 /* ------------------------------------------------------ product seeding -- */
 const COLOR_WORDS = {
@@ -229,7 +267,7 @@ function page404(res) {
 
 /* ------------------------------------------------------------ API routes */
 async function handleApi(req, res, pathname) {
-  const ip = req.socket.remoteAddress || 'x';
+  const ip = (TRUST_PROXY && req.headers['x-real-ip']) || req.socket.remoteAddress || 'x';
 
   /* ---- LOGIN ---- */
   if (pathname === '/api/login' && req.method === 'POST') {
@@ -237,7 +275,7 @@ async function handleApi(req, res, pathname) {
     const body = JSON.parse((await readBody(req)).toString() || '{}');
     if (sha256(String(body.password || '')) === settings.adminPasswordHash) {
       const token = createSession();
-      res.setHeader('Set-Cookie', `adminToken=${token}; HttpOnly; Path=/; Max-Age=604800; SameSite=Strict`);
+      res.setHeader('Set-Cookie', `adminToken=${token}; Max-Age=604800; ${COOKIE_FLAGS}`);
       return json(res, 200, { ok: true });
     }
     noteAttempt(ip);
@@ -245,7 +283,7 @@ async function handleApi(req, res, pathname) {
   }
   if (pathname === '/api/logout' && req.method === 'POST') {
     sessions.delete(parseCookies(req).adminToken);
-    res.setHeader('Set-Cookie', 'adminToken=; HttpOnly; Path=/; Max-Age=0');
+    res.setHeader('Set-Cookie', `adminToken=; Max-Age=0; ${COOKIE_FLAGS}`);
     return json(res, 200, { ok: true });
   }
 
@@ -386,10 +424,13 @@ async function handleApi(req, res, pathname) {
     if (name.length < 3) return json(res, 400, { error: 'Please enter your full name' });
     if (!/^0?1\d{8,9}$/.test(phone.replace(/[\s-]/g, ''))) return json(res, 400, { error: 'Please enter a valid Egyptian phone number' });
     if (address.length < 8) return json(res, 400, { error: 'Please enter your full address' });
+    const governorate = String(cust.governorate || '').trim().slice(0, 60);
+    if (!governorate) return json(res, 400, { error: 'Please choose your governorate' });
+    if (settings.deliveryOff.includes(governorate)) return json(res, 400, { error: 'Sorry, we do not deliver to this governorate yet' });
 
     const subtotal = valid.reduce((s, it) => s + it.price * it.qty, 0);
-    const shipping = settings.freeShippingOver > 0 && subtotal >= settings.freeShippingOver ? 0 : settings.shippingFee;
-    const total = subtotal + shipping;
+    const shipping = shippingFor(governorate, subtotal);   // null ⇒ added by the owner on confirmation
+    const total = subtotal + (shipping || 0);
 
     /* === PAYMENT GATEWAY HOOK =========================================
        When you attach your gateway (Paymob / Stripe / Fawry ...):
@@ -409,7 +450,7 @@ async function handleApi(req, res, pathname) {
       customer: {
         name, phone,
         altPhone: String(cust.altPhone || '').trim().slice(0, 20),
-        governorate: String(cust.governorate || '').slice(0, 60),
+        governorate,
         city: String(cust.city || '').slice(0, 60),
         address,
         notes: String(cust.notes || '').slice(0, 300),
@@ -433,6 +474,9 @@ async function handleApi(req, res, pathname) {
     const body = JSON.parse((await readBody(req)).toString() || '{}');
     if (['new', 'confirmed', 'delivered', 'cancelled'].includes(body.status)) {
       o.status = body.status; o.updatedAt = Date.now(); saveOrders();
+    }
+    if (body.shipping !== undefined && body.shipping !== '' && Number.isFinite(Number(body.shipping)) && Number(body.shipping) >= 0) {
+      o.shipping = Number(body.shipping); o.total = o.subtotal + o.shipping; o.updatedAt = Date.now(); saveOrders();
     }
     return json(res, 200, o);
   }
@@ -482,7 +526,7 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, HOST, () => {
   console.log('');
   console.log('  3 ♥ M  FASHION — Home Wear & Eastern Clothes');
   console.log(`  • Store      →  http://localhost:${PORT}`);
